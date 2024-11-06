@@ -1,0 +1,6 @@
+.DS_Store
+.idea/
+secrets.txt
+folder/secrets2.txt
+.venv
+.env
