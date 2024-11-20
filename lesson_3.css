@@ -1,0 +1,282 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+
+body {
+    background-color: cadetblue;
+    color: white;
+    /*color: black;*/
+    /*background-image: url("bird.jpg");*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: center bottom;*/
+}
+
+p {
+    background-color: white;
+    color: black;
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
+    /*padding-top: 30px;*/
+    /*padding-bottom: 30px;*/
+    /*padding: 40px 30px;*/
+    padding: 20px;
+
+    /*margin-left: 20px;*/
+    margin: 10px;
+
+    /*border-top: 10px red solid;*/
+    /*border-bottom: 5px red solid;*/
+    /*border-left: 1px red solid;*/
+    /*border-right: 1px red solid;*/
+    border: 5px red solid;
+    /*border-bottom-width: 10px;*/
+    /*border-bottom-style: dashed;*/
+    /*border-bottom-color: purple;*/
+    border-radius: 20px;
+}
+
+
+#box-1 {
+    background-color: #333;
+    color: #fff;
+
+    border: 5px red solid;
+    border-radius: 10px;
+
+    padding: 20px;
+    margin: 20px 40px;
+}
+
+.box-2 {
+    border: 3px dotted #ccc;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.box-3 h1 {
+    color: black;
+    text-decoration: underline;
+    font-family: "Verdana", "Tahoma", Sans-Serif;
+    font-weight: 800;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    word-spacing: 1em;
+}
+
+.box-3 p {
+    border: white 1px solid;
+    border-radius: 10px;
+}
+
+
+.categories {
+    border: 1px #ccc solid;
+    padding: 10px;
+    border-radius: 15px;
+    margin: 20px;
+}
+
+.categories h2 {
+    text-align: center;
+}
+
+.categories ul {
+    padding: 0;
+    list-style: none;
+    margin-left: 20px;
+}
+
+.categories li {
+    padding-bottom: 6px;
+    border-bottom: dotted 2px #333;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+a:visited {
+    color: gray;
+}
+
+a:hover {
+    color: orange;
+}
+
+a:active {
+    color: red;
+    /*font-size: 1.6em;*/
+}
+
+
+.my-form {
+    padding: 20px;
+    margin: 20px;
+}
+
+.my-form .form-group {
+    padding-bottom: 15px;
+}
+
+.my-form label {
+    display: block;
+}
+
+.my-form input[type='text'], .my-form input[type='email'], .my-form textarea {
+    padding: 8px;
+    width: 100%;
+}
+
+
+.my-form input[type='submit'] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+}
+
+
+.btn {
+    background-color: #333;
+    color: white;
+    padding: 10px 15px;
+    margin: 20px;
+    border: none;
+}
+
+.btn:hover {
+    background-color: red;
+    color: white;
+}
+
+.block p {
+    border: none;
+}
+
+.block {
+    float: left;
+    width: 33.3%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+.clr {
+    clear: both;
+}
+
+
+.p-box {
+    position: relative;
+    width: 400px;
+    height: 500px;
+    border: 5px solid black;
+    background-color: white;
+    color: black;
+}
+
+.p-box h2 {
+    /*position: fixed;*/
+    position: absolute;
+    left: 100px;
+    top: 300px;
+}
+
+.p-box h3 {
+    position: absolute;
+    left: 200px;
+    top: 200px;
+}
+
+.my-list {
+    margin: 40px;
+    padding: 10px;
+    list-style: none;
+}
+
+.my-list li {
+    margin: 10px;
+    padding: 20px;
+    border: 1px black solid;
+}
+
+/*.my-list li:first-child {*/
+/*    background-color: red;*/
+/*    color: white;*/
+/*}*/
+
+
+/*.my-list li:last-child {*/
+/*    background-color: red;*/
+/*    color: white;*/
+/*}*/
+
+
+/*.my-list li:nth-child(4) {*/
+/*    background-color: red;*/
+/*    color: white;*/
+/*}*/
+
+
+.my-list li:nth-child(odd) {
+    background-color: white;
+    color: black;
+}
+
+.my-list li:nth-child(even) {
+    background-color: black;
+    color: white;
+}
+
+
+p::first-letter {
+    color: red;
+    font-size: 2em;
+}
+
+
+@media (max-width: 1000px) {
+    body {
+        background-color: black;
+        color: white;
+        font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    }
+
+    h1 {
+        color: brown;
+    }
+
+}
+
+@media (max-width: 600px) {
+    body {
+        background-color: white;
+        color: black;
+        font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    }
+
+    h1 {
+        color: brown;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
