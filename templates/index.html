@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    {% set page_name='Home Page' %}
+    {% include('navigation.html') %}
+
+    {% if user %}
+          <h1>Welcome to {{ page_name }},  {{ user.first_name | default('Stranger', true) | upper() }} {{ user.last_name }}!</h1>
+          <h2>Your age is {{ user.age }}</h2>
+          <h2>My hobbies:</h2>
+            <ul>
+                {% for hobby in hobbies %}
+                    <li><h3>{{ hobby }}</h3></li>
+                {% endfor %}
+            </ul>
+
+          <h2>My degrees:</h2>
+            <ol>
+                {% for degree in degrees %}
+                    <li><h3>{{ degree }}</h3></li>
+                {% endfor %}
+            </ol>
+            <h2>My Data:</h2>
+            <ul>
+                {% for key, val in user.items() %}
+                    <li><h3>{{ key }} - {{ val }}</h3></li>
+                {% endfor %}
+            </ul>
+
+    {% else %}
+        <h1>Welcome to {{ page_name }},  Stranger!</h1>
+    {% endif %}
+
+</body>
+</html>
