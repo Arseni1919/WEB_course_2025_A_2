@@ -1,4 +1,14 @@
 <a href="/">Home Page</a> |
 <a href="/customers">Customers</a> |
 <a href="/about">About Us</a> |
-<a href="/">Contacts</a>
+<a href="/contacts">Contacts</a> |
+<a href="/block_example">Block Example</a> |
+<a href="/get_post_example">Get & Post Example</a> |
+{% if session.get('logged_in') %}
+    <a href="/logout">Log Out</a>
+{% else %}
+    <a href="/login">Log In</a>
+{% endif %}
+
+
+

@@ -1,8 +1,12 @@
 from flask import Flask
 from flask import redirect, url_for
 from flask import render_template
+from flask import request
+from flask import session
+
 
 app = Flask(__name__)
+app.secret_key = '123'
 
 
 @app.route('/index')
@@ -48,4 +52,82 @@ def about_page():
 def customer_5_func():
     return 'Customer 5 - Cart'
 
+#############################
+
+@app.route('/contacts')
+def contacts_func():
+    if session['logged_in']:
+        pass
+        username = session['username']
+        # DB
+        contacts = ['Yossi', 'Ariel', 'Roberto']
+        return render_template('contacts.html', contacts=contacts)
+    message = 'Please register first!'
+    return render_template('contacts.html', message=message)
+
+
+
+@app.route('/block_example')
+def block_example_func():
+    return render_template('block_example.html')
+
+
+@app.route('/get_post_example', methods=['GET', 'POST'])
+def get_post_example_func():
+    request_method = request.method
+    if request_method == 'GET':
+        # GET method
+        if 'first_name' in request.args:
+            first_name = request.args['first_name']
+            last_name = request.args['last_name']
+            # check DB
+            return render_template(
+                'get_post_example.html',
+                request_method=request_method,
+                first_name=first_name,
+                last_name=last_name
+            )
+        return render_template(
+            'get_post_example.html',
+            request_method=request_method
+        )
+    else:
+        # POST method
+        username = request.form['username']
+        password = request.form['password']
+        # check DB
+        # return redirect('/')
+        return render_template(
+            'get_post_example.html',
+            request_method=request_method,
+            username=username,
+            password=password
+        )
+
+@app.route('/login', methods=['GET', 'POST'])
+def login_func():
+    if request.method == 'GET':
+        return render_template('login.html')
+    username = request.form['username']
+    password = request.form['password']
+    # check DB
+    session['username'] = username
+    session['logged_in'] = True
+    return redirect('/')
+
+
+@app.route('/logout')
+def logout_func():
+    session['username'] = None
+    session['logged_in'] = False
+    return redirect('/')
+
+
+
+# http://127.0.0.1:5000/
+# get_post_example
+# ?
+# first_name=Arseniy
+# &
+# last_name=Pertzovsky
 
