@@ -153,26 +153,3 @@ def fetch_example_func():
         return json.dumps(res)
     else:
         raise RuntimeError()
-
-
-
-
-
-
-
-
-
-
-# @app.route('/fetch_example', methods=['GET', 'POST'])
-# def fetch_example_func():
-#     if request.method == 'GET':
-#         data = {'message': 'GET response'}
-#         return json.dumps(data)
-#     if request.method == 'POST':
-#         mydict = request.json
-#         print(type(mydict))
-#         print(mydict)
-#         data = {'message': 'POST response'}
-#         data.update(mydict)
-#         return json.dumps(data)
-#     raise RuntimeError('no no')
