@@ -1,8 +1,11 @@
+import time
+
 from flask import Flask
 from flask import redirect, url_for
 from flask import render_template
 from flask import request
 from flask import session
+import json
 
 
 app = Flask(__name__)
@@ -124,10 +127,52 @@ def logout_func():
 
 
 
-# http://127.0.0.1:5000/
-# get_post_example
-# ?
-# first_name=Arseniy
-# &
-# last_name=Pertzovsky
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
+# FETCH
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
 
+@app.route('/fetch_page')
+def fetch_page_func():
+    return render_template('fetch_example.html')
+
+
+@app.route('/fetch_example', methods=['GET', 'POST'])
+def fetch_example_func():
+    if request.method == 'GET':
+        data = {'message': 'This message is from /fetch_example route!'}
+        time.sleep(1)
+        return json.dumps(data)
+    elif request.method == 'POST':
+        data = request.json
+        # check DB
+        res = {'message': 'success'}
+        return json.dumps(res)
+    else:
+        raise RuntimeError()
+
+
+
+
+
+
+
+
+
+
+# @app.route('/fetch_example', methods=['GET', 'POST'])
+# def fetch_example_func():
+#     if request.method == 'GET':
+#         data = {'message': 'GET response'}
+#         return json.dumps(data)
+#     if request.method == 'POST':
+#         mydict = request.json
+#         print(type(mydict))
+#         print(mydict)
+#         data = {'message': 'POST response'}
+#         data.update(mydict)
+#         return json.dumps(data)
+#     raise RuntimeError('no no')
