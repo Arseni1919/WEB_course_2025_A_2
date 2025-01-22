@@ -1,10 +1,18 @@
+# chrome://net-internals/#sockets
+# chrome://net-internals/#sockets
+# chrome://net-internals/#sockets
+# chrome://net-internals/#sockets
+# chrome://net-internals/#sockets
 import time
+
+from db_functions import customer_update
 
 from flask import Flask
 from flask import redirect, url_for
 from flask import render_template
 from flask import request
 from flask import session
+from flask import jsonify
 import json
 
 
@@ -127,6 +135,9 @@ def logout_func():
 
 
 
+
+
+
 # ------------------------------------------------------------------ #
 # ------------------------------------------------------------------ #
 # ------------------------------------------------------------------ #
@@ -153,3 +164,175 @@ def fetch_example_func():
         return json.dumps(res)
     else:
         raise RuntimeError()
+
+
+
+
+
+
+
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
+# MONGODB
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
+import pymongo
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+
+uri = "mongodb+srv://1919ars:1919ars@cluster0.kg52uoz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
+# Create a new cluster and connect to the server
+cluster = MongoClient(uri, server_api=ServerApi('1'))
+mydatabase = cluster['mydatabase']
+customers_col = mydatabase['customers']
+products_col = mydatabase['products']
+
+@app.route('/mongodb')
+def mongodb_func():
+    # message = 'good'
+    # message = pymongo.version
+    # message = cluster.list_database_names()
+    # sample_analytics = cluster['sample_analytics']
+    # message = sample_analytics.list_collection_names()
+
+    # insert_one
+    # my_dict = {
+    #     'name': 'John',
+    #     'address': 'Highway 37',
+    #     'rating': 10
+    # }
+    # customers_col.insert_one(my_dict)
+    # message = my_dict
+
+    # insert_many
+    # my_list = [
+    #     {'name': 'Tal', 'address': 'Hogwards 37', 'rating': 11},
+    #     {'name': 'Bekka', 'address': 'Bronx 3', 'rating': 20},
+    #     {'name': 'Alisa', 'address': 'Area 9', 'rating': 30},
+    # ]
+    # customers_col.insert_many(my_list)
+    # message = my_list
+
+    # findOne
+    # message = customers_col.find_one({'name': 'John'})
+
+    # find
+    # message = list(customers_col.find())
+
+    # find query
+    # myquery = {'name': 'John'}
+    # myquery = {'rating': {"$gt": 10}}
+    # message = list(customers_col.find(myquery))
+
+    # sort
+    # myquery = {'rating': {"$gt": 10}}
+    # message = list(customers_col.find(myquery).sort('name'))
+    # message = list(customers_col.find().sort('name', -1))
+    # message = len(list(customers_col.find()))
+
+    # limit
+    # myquery = {'rating': {"$lt": 50}}
+    # message = list(customers_col.find(myquery).sort('rating', -1).limit(3))
+    # my_list = list(customers_col.find().sort('rating', -1).limit(3))
+
+    # update one
+    # my_query = {'address': 'Highway 37'}
+    # new_values = {'$set': {'address': 'Canyon 123'}}
+    # customers_col.update_one(my_query, new_values)
+    # message = list(customers_col.find({'address': 'Canyon 123'}))
+
+    # update many
+    # customers_col.update_many({}, {'$inc': {'rating': 1}})
+    # customers_col.update_many({}, {'$set': {'rating': 100}})
+    # message = list(customers_col.find())
+
+    # delete one
+    # customers_col.delete_one({'name': 'Alisa'})
+    # message = list(customers_col.find())
+
+    # delete many
+    # customers_col.delete_many({'rating': {'$gt': 1000}})
+    # message = list(customers_col.find())
+
+    # aggregations
+    # aggregation = [
+    #     {
+    #         '$match': {
+    #             'rating': 100
+    #         }
+    #     }, {
+    #         '$sort': {
+    #             'name': -1
+    #         }
+    #     }, {
+    #         '$limit': 3
+    #     }
+    # ]
+    # message = list(customers_col.aggregate(aggregation))
+
+    message = ''
+    my_list = list(customers_col.find())
+    return render_template('mongodb_lecture.html', my_list=my_list)
+    # return render_template('mongodb_lecture.html', message=message)
+
+
+    # # return render_template('mongodb_lecture.html', message=message)
+    # return render_template('mongodb_lecture.html', my_list=my_list)
+
+
+
+@app.route('/db_insert')
+def insert_func():
+    # insert_one
+    my_dict = {
+        'name': request.args['name'],
+        'address': request.args['address'],
+        'rating': int(request.args['rating']),
+    }
+    customers_col.insert_one(my_dict)
+    return redirect(url_for('mongodb_func'))
+
+
+
+@app.route('/db_delete', methods=['POST'])
+def delete_func():
+    print(request.form)
+    customers_col.delete_one({'name': request.form['name']})
+    return redirect(url_for('mongodb_func'))
+
+
+
+@app.route('/db_increment')
+def increment_func():
+    customers_col.update_many({}, {'$inc': {'rating': 1}})
+    return redirect(url_for('mongodb_func'))
+
+
+
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
+# REST API
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
+# ------------------------------------------------------------------ #
+
+
+
+@app.route('/profiles', defaults={'user_id': 54321, 'category_name': 'DEFAULT CATEGORY'})
+@app.route('/profiles/<int:user_id>/categories/<category_name>')
+def profiles_func(user_id, category_name):
+    # return render_template('profiles.html',
+    #                        user_id=user_id, category_name=category_name
+    #                        )
+    data = {'user_id': user_id, 'category': category_name}
+    return jsonify(data)
+    # return json.dumps(data)
+
+@app.route('/profiles/<int:user_id>/categories')
+def profiles_categories_func(user_id):
+    return render_template('profiles.html',
+                           user_id=user_id, category_name='NO CATEGORY')
